@@ -1,56 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Majlis Pertunangan</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png" type="image/png">
-
-  <!-- Google Font: Aref Ruqaa -->
-  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
   <style>
     body {
-      font-family: 'Aref Ruqaa', serif;
       margin: 0;
-      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Aref Ruqaa', serif;
       text-align: center;
-      padding: 40px 20px;
       color: #000;
-      scroll-behavior: smooth;
+    }
+
+    /* General section styling */
+    section {
+      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
+      background-size: cover;
+      padding: 60px 20px;
     }
 
     h1 {
-      font-size: 7vw;
-      margin-bottom: 30px;
+      font-size: 8vw; /* smaller, responsive */
+      margin-bottom: 20px;
     }
 
-    .invitation-image {
-      width: 100%;
+    .hero-image {
+      width: 80%;
       max-width: 800px;
       height: auto;
+      display: block;
+      margin: 0 auto 30px;
     }
 
     .cta-button {
       display: inline-block;
-      margin-top: 30px;
-      padding: 8px 10px;   /* smaller height */
+      margin-top: 20px;
+      padding: 8px 10px;
       font-size: 4vw;
-      max-width: 500px;    /* longer width */
+      max-width: 500px;
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
-      background: #fff;   /* white background */
+      background: #fff;
       color: #000;
       cursor: pointer;
       font-family: 'Aref Ruqaa', serif;
     }
 
-    /* Floating music button */
-    #musicBtn {
+    /* Video styling */
+    #invitation-video video {
+      width: 100%;
+      max-width: 900px;
+      border: none;
+      outline: none;
+      display: block;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 6vw;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 4vw;
+      margin: 10px 0;
+    }
+
+    /* Floating music control */
+    .music-toggle {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -59,113 +79,70 @@
       border-radius: 50%;
       border: 2px solid #000;
       background: transparent;
-      color: #000;
-      font-size: 28px;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: none;
+      cursor: pointer;
       z-index: 1000;
     }
 
-    /* Invitation Video Section */
-    #invitation-video {
-      margin-top: 100vh;
-      padding: 40px 20px;
-    }
-
-    #invitation-video video {
-      width: 100%;
-      max-width: 900px;
-      border: none;
-      border-radius: 0;
-      display: block;
-      margin: auto;
-    }
-
-    /* Event Details Section */
-    #event-details {
-      margin-top: 50px;
-      padding: 60px 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #event-details h2 {
-      font-size: 6vw;
-      margin-bottom: 20px;
-    }
-
-    #event-details p {
-      font-size: 4.5vw;
-      line-height: 1.5em;
+    .music-toggle img {
+      width: 30px;
+      height: 30px;
     }
   </style>
 </head>
 <body>
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>Undangan Majlis Pertunangan</h1>
+    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image">
+    <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
+  </section>
 
-  <!-- Title -->
-  <h1>Undangan Majlis Pertunangan</h1>
-
-  <!-- Image -->
-  <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Majlis Image" class="invitation-image">
-
-  <!-- Invitation Button -->
-  <a href="#invitation-video" class="cta-button" onclick="playInvitation()">Buka Jemputan</a>
-
-  <!-- Music -->
-  <audio id="bgmusic" autoplay muted loop>
-    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- Floating Music Button -->
-  <button id="musicBtn" onclick="toggleMute()">🔊</button>
-
-  <!-- Invitation Video Section -->
+  <!-- Video Section -->
   <section id="invitation-video">
-    <video id="inviteVideo" muted loop playsinline></video>
+    <video id="videoCard" loop playsinline>
+      <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4">
+    </video>
   </section>
 
   <!-- Event Details Section -->
   <section id="event-details">
     <h2>Butiran Majlis</h2>
-    <p>
-      Tarikh: Sabtu, 15 September 2025 <br>
-      Masa: 11:00 pagi <br>
-      Tempat: No. 123, Jalan Bahagia, Sungai Petani, Kedah
-    </p>
+    <p>📍 Lokasi: Contoh Dewan, Kuala Lumpur</p>
+    <p>📅 Tarikh: 25 Disember 2025</p>
+    <p>🕒 Masa: 8:00 Malam</p>
   </section>
 
+  <!-- Floating Music Button -->
+  <button class="music-toggle" onclick="toggleMusic()">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music Icon">
+  </button>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mp3">
+  </audio>
+
   <script>
-    const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("musicBtn");
-    const video = document.getElementById("inviteVideo");
-
-    // Unmute bg music on first tap
-    document.addEventListener("click", () => {
-      audio.muted = false;
-      audio.play();
-    }, { once: true });
-
-    // Toggle mute
-    function toggleMute() {
-      audio.muted = !audio.muted;
-      btn.textContent = audio.muted ? "🔇" : "🔊";
+    function scrollToVideo() {
+      const video = document.getElementById("videoCard");
+      video.play(); // play when user clicks button
+      document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
     }
 
-    // Play video when button clicked
-    function playInvitation() {
-      if (!video.src) {
-        video.src = "https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4";
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      const icon = document.getElementById("musicIcon");
+      if (music.paused) {
+        music.play();
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/musical-notes.png";
+      } else {
+        music.pause();
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
       }
-      video.play();
     }
   </script>
-
 </body>
 </html>
