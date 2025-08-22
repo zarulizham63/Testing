@@ -15,15 +15,16 @@
     body {
       font-family: 'Aref Ruqaa', serif;
       margin: 0;
-      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Landscape.png") no-repeat center center fixed;
+      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center fixed;
       background-size: cover;
       text-align: center;
       padding: 40px 20px;
       color: #000;
+      scroll-behavior: smooth;
     }
 
     h1 {
-      font-size: 7vw;  /* smaller title */
+      font-size: 7vw;
       margin-bottom: 30px;
     }
 
@@ -57,15 +58,51 @@
       height: 60px;
       border-radius: 50%;
       border: 2px solid #000;
-      background: transparent; /* transparent background */
+      background: transparent;
       color: #000;
       font-size: 28px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: none; /* remove shadow */
+      box-shadow: none;
       z-index: 1000;
+    }
+
+    /* Invitation Video Section */
+    #invitation-video {
+      margin-top: 100vh;
+      padding: 40px 20px;
+    }
+
+    #invitation-video video {
+      width: 100%;
+      max-width: 900px;
+      border: none;
+      border-radius: 0;
+      display: block;
+      margin: auto;
+    }
+
+    /* Event Details Section */
+    #event-details {
+      margin-top: 50px;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #event-details h2 {
+      font-size: 6vw;
+      margin-bottom: 20px;
+    }
+
+    #event-details p {
+      font-size: 4.5vw;
+      line-height: 1.5em;
     }
   </style>
 </head>
@@ -78,7 +115,7 @@
   <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Majlis Image" class="invitation-image">
 
   <!-- Invitation Button -->
-  <button class="cta-button">Buka Jemputan</button>
+  <a href="#invitation-video" class="cta-button" onclick="playInvitation()">Buka Jemputan</a>
 
   <!-- Music -->
   <audio id="bgmusic" autoplay muted loop>
@@ -89,11 +126,27 @@
   <!-- Floating Music Button -->
   <button id="musicBtn" onclick="toggleMute()">🔊</button>
 
+  <!-- Invitation Video Section -->
+  <section id="invitation-video">
+    <video id="inviteVideo" muted loop playsinline></video>
+  </section>
+
+  <!-- Event Details Section -->
+  <section id="event-details">
+    <h2>Butiran Majlis</h2>
+    <p>
+      Tarikh: Sabtu, 15 September 2025 <br>
+      Masa: 11:00 pagi <br>
+      Tempat: No. 123, Jalan Bahagia, Sungai Petani, Kedah
+    </p>
+  </section>
+
   <script>
     const audio = document.getElementById("bgmusic");
     const btn = document.getElementById("musicBtn");
+    const video = document.getElementById("inviteVideo");
 
-    // Unmute on first tap
+    // Unmute bg music on first tap
     document.addEventListener("click", () => {
       audio.muted = false;
       audio.play();
@@ -104,8 +157,15 @@
       audio.muted = !audio.muted;
       btn.textContent = audio.muted ? "🔇" : "🔊";
     }
+
+    // Play video when button clicked
+    function playInvitation() {
+      if (!video.src) {
+        video.src = "https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4";
+      }
+      video.play();
+    }
   </script>
 
 </body>
 </html>
-
