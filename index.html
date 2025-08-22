@@ -4,17 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Majlis Pertunangan</title>
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
+
   <style>
-    body {
+    body, html {
       margin: 0;
+      padding: 0;
       font-family: 'Aref Ruqaa', serif;
-      text-align: center;
       color: #000;
+      text-align: center;
     }
 
-    /* General section styling */
     section {
       background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
       background-size: cover;
@@ -22,24 +27,22 @@
     }
 
     h1 {
-      font-size: 8vw; /* smaller, responsive */
+      font-size: 8vw;
       margin-bottom: 20px;
     }
 
     .hero-image {
-      width: 80%;
       max-width: 800px;
+      width: 90%;
       height: auto;
-      display: block;
-      margin: 0 auto 30px;
     }
 
     .cta-button {
       display: inline-block;
-      margin-top: 20px;
-      padding: 8px 10px;
+      margin-top: 30px;
+      padding: 8px 10px;   /* smaller height */
       font-size: 4vw;
-      max-width: 500px;
+      max-width: 500px;    /* longer width */
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
@@ -49,14 +52,31 @@
       font-family: 'Aref Ruqaa', serif;
     }
 
-    /* Video styling */
-    #invitation-video video {
+    video {
       width: 100%;
       max-width: 900px;
+      height: auto;
       border: none;
       outline: none;
       display: block;
-      margin: 0 auto;
+      margin: auto;
+    }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid #000;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .floating-btn img {
+      width: 24px;
+      height: 24px;
     }
 
     h2 {
@@ -65,34 +85,30 @@
     }
 
     p {
-      font-size: 4vw;
+      font-size: 4.5vw;
       margin: 10px 0;
     }
 
-    /* Floating music control */
-    .music-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid #000;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .music-toggle img {
-      width: 30px;
-      height: 30px;
+    @media (min-width: 768px) {
+      h1 { font-size: 4vw; }
+      h2 { font-size: 2.5vw; }
+      p { font-size: 1.5vw; }
+      .cta-button { font-size: 1.5vw; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Toggle -->
+  <button class="floating-btn" onclick="toggleMusic()">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music">
+  </button>
+
   <!-- Hero Section -->
   <section id="hero">
     <h1>Undangan Majlis Pertunangan</h1>
@@ -110,25 +126,26 @@
   <!-- Event Details Section -->
   <section id="event-details">
     <h2>Butiran Majlis</h2>
-    <p>📍 Lokasi: Contoh Dewan, Kuala Lumpur</p>
-    <p>📅 Tarikh: 25 Disember 2025</p>
-    <p>🕒 Masa: 8:00 Malam</p>
+    <p>📍 Lokasi: Rumah Kediaman Keluarga</p>
+    <p>📅 Tarikh: 30 September 2025</p>
+    <p>🕒 Masa: 2.00 Petang</p>
   </section>
-
-  <!-- Floating Music Button -->
-  <button class="music-toggle" onclick="toggleMusic()">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music Icon">
-  </button>
-
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mp3">
-  </audio>
 
   <script>
     function scrollToVideo() {
       const video = document.getElementById("videoCard");
-      video.play(); // play when user clicks button
+      const music = document.getElementById("bgMusic");
+
+      // Play video muted
+      video.muted = true;
+      video.play();
+
+      // Play background music (unmuted)
+      if (music.paused) {
+        music.play().catch(err => console.log("Music blocked:", err));
+      }
+
+      // Smooth scroll
       document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
     }
 
