@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Autoplay Music Page</title>
+  <title>Autoplay Music Test</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
-      background: #f3f3f3;
+      background: #fafafa;
     }
     button {
       margin-top: 20px;
@@ -27,12 +27,13 @@
   </style>
 </head>
 <body>
-  <h1>Welcome 🎵</h1>
-  <p>Background music will start when you click anywhere or press the button.</p>
 
-  <!-- Music element with your Google Drive link -->
+  <h1>Welcome 🎵</h1>
+  <p>Click anywhere or use the button below to unmute the background music.</p>
+
+  <!-- Music element -->
   <audio id="bgmusic" autoplay muted loop>
-    <source src="https://docs.google.com/uc?export=download&id=19zHTuNcMZCwdYDI561JxtIDyR8_oqGCv" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -41,14 +42,18 @@
 
   <script>
     const audio = document.getElementById("bgmusic");
+
+    // Unmute on first click anywhere on the page
     document.addEventListener("click", () => {
       audio.muted = false;
       audio.play();
     }, { once: true });
 
+    // Toggle button for manual mute/unmute
     function toggleMute() {
       audio.muted = !audio.muted;
     }
   </script>
+
 </body>
 </html>
