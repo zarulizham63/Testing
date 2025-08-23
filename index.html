@@ -4,62 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Majlis Pertunangan</title>
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
 
   <style>
     body, html {
       margin: 0;
       padding: 0;
       font-family: 'Aref Ruqaa', serif;
-      color: #000;
       text-align: center;
+      overflow-x: hidden;
     }
 
     section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
       background-size: cover;
-      padding: 60px 20px;
+      padding: 20px;
     }
 
     h1 {
       font-size: 8vw;
       margin-bottom: 20px;
+      color: #000;
     }
 
-    .hero-image {
-      max-width: 800px;
-      width: 90%;
+    .main-img {
+      max-width: 90%;
+      width: 800px;
       height: auto;
+      margin: 20px 0;
     }
 
     .cta-button {
-      display: inline-block;
       margin-top: 30px;
-      padding: 8px 10px;   /* smaller height */
+      padding: 8px 10px;
       font-size: 4vw;
-      max-width: 500px;    /* longer width */
+      max-width: 500px;
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
       background: #fff;
       color: #000;
       cursor: pointer;
-      font-family: 'Aref Ruqaa', serif;
-    }
-
-    video {
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      border: none;
-      outline: none;
-      display: block;
-      margin: auto;
     }
 
     .floating-btn {
@@ -67,33 +60,48 @@
       bottom: 20px;
       right: 20px;
       background: transparent;
-      border: 2px solid #000;
+      border: 2px solid black;
       border-radius: 50%;
-      padding: 12px;
+      padding: 15px;
       cursor: pointer;
-      z-index: 999;
+      z-index: 1000;
     }
 
     .floating-btn img {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
 
-    h2 {
-      font-size: 6vw;
-      margin-bottom: 20px;
+    video {
+      width: 100%;
+      max-width: 800px;
+      border: none;
+      outline: none;
+      display: block;
     }
 
-    p {
-      font-size: 4.5vw;
-      margin: 10px 0;
+    /* Flower falling effect */
+    .flower {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 2000;
     }
 
-    @media (min-width: 768px) {
-      h1 { font-size: 4vw; }
-      h2 { font-size: 2.5vw; }
-      p { font-size: 1.5vw; }
-      .cta-button { font-size: 1.5vw; }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 10vw; }
+      .cta-button { font-size: 5vw; }
+      .floating-btn { padding: 12px; }
+      .floating-btn img { width: 24px; height: 24px; }
     }
   </style>
 </head>
@@ -101,34 +109,31 @@
 
   <!-- Background Music -->
   <audio id="bgMusic" loop>
-    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mp3">
   </audio>
 
   <!-- Floating Music Toggle -->
   <button class="floating-btn" onclick="toggleMusic()">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music">
   </button>
 
-  <!-- Hero Section -->
-  <section id="hero">
+  <!-- Section 1 -->
+  <section>
     <h1>Undangan Majlis Pertunangan</h1>
-    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image">
+    <img class="main-img" src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding">
     <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
   </section>
 
-  <!-- Video Section -->
+  <!-- Section 2 (Video Invitation) -->
   <section id="invitation-video">
-    <video id="videoCard" loop playsinline>
+    <video id="videoCard" autoplay loop muted playsinline>
       <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4">
     </video>
   </section>
 
-  <!-- Event Details Section -->
+  <!-- Section 3 (Event Details) -->
   <section id="event-details">
-    <h2>Butiran Majlis</h2>
-    <p>📍 Lokasi: Rumah Kediaman Keluarga</p>
-    <p>📅 Tarikh: 30 September 2025</p>
-    <p>🕒 Masa: 2.00 Petang</p>
+    <h2>Butiran Majlis Akan Diletakkan Di Sini</h2>
   </section>
 
   <script>
@@ -136,17 +141,23 @@
       const video = document.getElementById("videoCard");
       const music = document.getElementById("bgMusic");
 
-      // Play video muted
+      // Start video (muted) + music
       video.muted = true;
       video.play();
-
-      // Play background music (unmuted)
       if (music.paused) {
         music.play().catch(err => console.log("Music blocked:", err));
       }
 
-      // Smooth scroll
+      // Smooth scroll to video
       document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
+
+      // Flower effect for 5s
+      startFlowerEffect(5);
+
+      // After 10s at video, auto scroll to next section
+      setTimeout(() => {
+        document.getElementById("event-details").scrollIntoView({ behavior: "smooth" });
+      }, 10000);
     }
 
     function toggleMusic() {
@@ -154,12 +165,29 @@
       const icon = document.getElementById("musicIcon");
       if (music.paused) {
         music.play();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/musical-notes.png";
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png";
       } else {
         music.pause();
         icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
       }
     }
+
+    function startFlowerEffect(duration) {
+      const symbols = ["🌸","🌺","🌷","💮","🌹"];
+      const interval = setInterval(() => {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 6000);
+      }, 300);
+
+      setTimeout(() => clearInterval(interval), duration * 1000);
+    }
   </script>
+
 </body>
 </html>
