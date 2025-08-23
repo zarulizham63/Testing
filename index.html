@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Majlis Pertunangan</title>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
-
-  <!-- Google Font -->
+  <link rel="icon" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
 
   <style>
-    body, html {
+    body {
       margin: 0;
-      padding: 0;
       font-family: 'Aref Ruqaa', serif;
       text-align: center;
+      background: url('https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png') no-repeat center center fixed;
+      background-size: cover;
       overflow-x: hidden;
     }
 
     section {
+      padding: 60px 20px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
-      background-size: cover;
-      padding: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h1 {
       font-size: 8vw;
       margin-bottom: 20px;
-      color: #000;
-      font-family: 'Aref Ruqaa', serif;
     }
 
     .main-img {
@@ -55,7 +58,7 @@
       background: #fff;
       color: #000;
       cursor: pointer;
-      font-family: 'Aref Ruqaa', serif;  /* ✅ restored original font */
+      font-family: 'Aref Ruqaa', serif;
     }
 
     .floating-btn {
@@ -63,80 +66,72 @@
       bottom: 20px;
       right: 20px;
       background: transparent;
-      border: 2px solid black;
+      border: 2px solid #000;
       border-radius: 50%;
-      padding: 15px;
+      padding: 10px;
       cursor: pointer;
       z-index: 1000;
     }
 
     .floating-btn img {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
     }
 
     video {
       width: 100%;
       max-width: 800px;
       border: none;
-      outline: none;
-      display: block;
+      border-radius: 12px;
     }
 
-    /* Flower falling effect */
+    /* Falling flowers effect */
     .flower {
       position: fixed;
       top: -50px;
-      font-size: 24px;
+      width: 30px;
+      height: 30px;
+      background-image: url('https://img.icons8.com/emoji/48/000000/cherry-blossom.png');
+      background-size: cover;
       pointer-events: none;
       animation: fall linear forwards;
-      z-index: 2000;
     }
 
     @keyframes fall {
       to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 10vw; }
-      .cta-button { font-size: 5vw; }
-      .floating-btn { padding: 12px; }
-      .floating-btn img { width: 24px; height: 24px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mp3">
+  <!-- Background music -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Floating Music Toggle -->
+  <!-- Music toggle -->
   <button class="floating-btn" onclick="toggleMusic()">
     <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music">
   </button>
 
-  <!-- Section 1 -->
-  <section>
+  <!-- Intro Section -->
+  <section id="intro" class="visible">
     <h1>Undangan Majlis Pertunangan</h1>
-    <img class="main-img" src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding">
+    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding" class="main-img">
     <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
   </section>
 
-  <!-- Section 2 (Video Invitation) -->
+  <!-- Invitation Video -->
   <section id="invitation-video">
-    <video id="videoCard" autoplay loop muted playsinline>
-      <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4">
-    </video>
+    <video id="videoCard" autoplay muted loop playsinline></video>
   </section>
 
-  <!-- Section 3 (Event Details) -->
+  <!-- Event Details -->
   <section id="event-details">
-    <h2>Butiran Majlis Akan Diletakkan Di Sini</h2>
+    <h2>Butiran Majlis</h2>
+    <p>Tarikh, masa dan lokasi akan dipaparkan di sini.</p>
   </section>
 
   <script>
@@ -144,23 +139,32 @@
       const video = document.getElementById("videoCard");
       const music = document.getElementById("bgMusic");
 
-      // Start video (muted) + music
+      // Set video source & play muted
+      if (!video.src) {
+        video.src = "https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4";
+      }
       video.muted = true;
       video.play();
+
+      // Play background music
       if (music.paused) {
         music.play().catch(err => console.log("Music blocked:", err));
       }
 
-      // Smooth scroll to video
-      document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
+      // Smooth scroll to video section
+      const videoSection = document.getElementById("invitation-video");
+      videoSection.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => videoSection.classList.add("visible"), 800);
 
-      // Flower effect for 5s
-      startFlowerEffect(5);
+      // Trigger falling flowers effect
+      startFlowers();
 
-      // After 10s at video, auto scroll to next section
+      // After 30s at video section → scroll to details
       setTimeout(() => {
-        document.getElementById("event-details").scrollIntoView({ behavior: "smooth" });
-      }, 10000);
+        const details = document.getElementById("event-details");
+        details.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => details.classList.add("visible"), 800);
+      }, 30000);
     }
 
     function toggleMusic() {
@@ -175,22 +179,30 @@
       }
     }
 
-    function startFlowerEffect(duration) {
-      const symbols = ["🌸","🌺","🌷","💮","🌹"];
+    // Falling flowers effect
+    function startFlowers() {
+      let count = 0;
       const interval = setInterval(() => {
-        const flower = document.createElement("div");
-        flower.className = "flower";
-        flower.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        flower.style.left = Math.random() * window.innerWidth + "px";
-        flower.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(flower);
-
-        setTimeout(() => flower.remove(), 6000);
-      }, 300);
-
-      setTimeout(() => clearInterval(interval), duration * 1000);
+        createFlower();
+        count++;
+        if (count > 20) clearInterval(interval);
+      }, 250);
     }
-  </script>
 
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.className = "flower";
+      flower.style.left = Math.random() * window.innerWidth + "px";
+      flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.remove();
+      }, 5000);
+    }
+
+    // Make intro visible immediately
+    document.getElementById("intro").classList.add("visible");
+  </script>
 </body>
 </html>
