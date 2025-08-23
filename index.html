@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Majlis Pertunangan</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png" />
 
   <style>
+    :root { --fade-dur: 800ms; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body, html {
       margin: 0;
       padding: 0;
       font-family: 'Aref Ruqaa', serif;
       color: #000;
       text-align: center;
+      background: #fff;
     }
 
     section {
@@ -26,23 +31,15 @@
       padding: 60px 20px;
     }
 
-    h1 {
-      font-size: 8vw;
-      margin-bottom: 20px;
-    }
-
-    .hero-image {
-      max-width: 800px;
-      width: 90%;
-      height: auto;
-    }
+    h1 { font-size: 8vw; margin-bottom: 20px; }
+    .hero-image { max-width: 800px; width: 90%; height: auto; }
 
     .cta-button {
       display: inline-block;
       margin-top: 30px;
-      padding: 8px 10px;   /* smaller height */
+      padding: 8px 10px;
       font-size: 4vw;
-      max-width: 500px;    /* longer width */
+      max-width: 500px;
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
@@ -50,50 +47,49 @@
       color: #000;
       cursor: pointer;
       font-family: 'Aref Ruqaa', serif;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
+    .cta-button:active { transform: scale(.98); box-shadow: 0 2px 0 rgba(0,0,0,.2) inset; }
 
-    video {
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      border: none;
-      outline: none;
-      display: block;
-      margin: auto;
-    }
+    video { width: 100%; max-width: 900px; height: auto; border: none; outline: none; display: block; margin: auto; }
 
     .floating-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: transparent;
+      background: rgba(255,255,255,.85);
       border: 2px solid #000;
       border-radius: 50%;
       padding: 12px;
       cursor: pointer;
       z-index: 999;
+      backdrop-filter: blur(4px);
     }
+    .floating-btn img { width: 24px; height: 24px; display: block; }
 
-    .floating-btn img {
-      width: 24px;
-      height: 24px;
-    }
+    h2 { font-size: 6vw; margin-bottom: 20px; }
+    p  { font-size: 4.5vw; margin: 10px 0; }
 
-    h2 {
-      font-size: 6vw;
-      margin-bottom: 20px;
-    }
+    .fade-section { opacity: 0; transform: translateY(10px); transition: opacity var(--fade-dur) ease, transform var(--fade-dur) ease; }
+    .fade-section.visible { opacity: 1; transform: none; }
 
-    p {
-      font-size: 4.5vw;
-      margin: 10px 0;
-    }
+    /* Custom Text Styles */
+    .bismillah { font-family: 'Playfair Display', serif; font-size: 5vw; margin-bottom: 20px; }
+    .cinzel { font-family: 'Cinzel', serif; font-size: 4.5vw; margin: 10px 0; }
+    .default-small { font-size: 3.5vw; margin: 6px 0; font-style: italic; }
+    .default-bold { font-size: 4vw; font-weight: bold; margin: 8px 0; }
+    .ampersand { font-size: 4vw; margin: 6px 0; }
 
     @media (min-width: 768px) {
       h1 { font-size: 4vw; }
       h2 { font-size: 2.5vw; }
-      p { font-size: 1.5vw; }
+      p  { font-size: 1.5vw; }
       .cta-button { font-size: 1.5vw; }
+      .bismillah { font-size: 2vw; }
+      .cinzel { font-size: 1.8vw; }
+      .default-small { font-size: 1.2vw; }
+      .default-bold { font-size: 1.6vw; }
+      .ampersand { font-size: 1.6vw; }
     }
   </style>
 </head>
@@ -101,65 +97,118 @@
 
   <!-- Background Music -->
   <audio id="bgMusic" loop>
-    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Floating Music Toggle -->
-  <button class="floating-btn" onclick="toggleMusic()">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music">
+  <button class="floating-btn" id="musicToggle" aria-label="Togol muzik">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music" />
   </button>
 
   <!-- Hero Section -->
-  <section id="hero">
+  <section id="hero" class="fade-section visible">
     <h1>Undangan Majlis Pertunangan</h1>
-    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image">
-    <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
+    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image" />
+    <button class="cta-button" id="openInvite">Buka Jemputan</button>
   </section>
 
   <!-- Video Section -->
-  <section id="invitation-video">
+  <section id="invitation-video" class="fade-section">
     <video id="videoCard" loop playsinline>
-      <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4" />
     </video>
   </section>
 
-  <!-- Event Details Section -->
-  <section id="event-details">
-    <h2>Butiran Majlis</h2>
-    <p>📍 Lokasi: Rumah Kediaman Keluarga</p>
-    <p>📅 Tarikh: 30 September 2025</p>
-    <p>🕒 Masa: 2.00 Petang</p>
+  <!-- Event Details Section 1 -->
+  <section id="event-details" class="fade-section">
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="cinzel">Mohd Nasir Bin Daud @ Shaari</div>
+    <div class="ampersand">&</div>
+    <div class="cinzel">Sharifah Norliza Bt Syed Ishak</div>
+    <div class="default-small">Dengan penuh kesyukuran, kami menjemput</div>
+    <div class="default-bold">Dato • Datin • Tuan • Puan</div>
+    <div class="default-small">ke majlis pertunangan puteri kami,</div>
+    <div class="cinzel">Putri Nayli Batrisyia Binti Mohd Nasir</div>
+    <div class="ampersand">&</div>
+    <div class="cinzel">Zarul Izham Bin Mohammad</div>
   </section>
 
+  <!-- Script unchanged (scroll, fade, flowers, music) -->
   <script>
-    function scrollToVideo() {
-      const video = document.getElementById("videoCard");
-      const music = document.getElementById("bgMusic");
+    const video = document.getElementById('videoCard');
+    const music = document.getElementById('bgMusic');
+    const invitationVideoSection = document.getElementById('invitation-video');
+    const eventDetailsSection = document.getElementById('event-details');
+    const openBtn = document.getElementById('openInvite');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
 
-      // Play video muted
+    let autoScrollTimer = null;
+    let flowersTimer = null;
+
+    function fadeIn(el) { el.classList.add('visible'); }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-section').forEach((sec) => {
+      if (sec.id !== 'hero') io.observe(sec);
+    });
+
+    function startFlowerFall(duration = 10000) {
+      const start = Date.now();
+      function spawnOne() {
+        const now = Date.now();
+        if (now - start > duration) return;
+        const span = document.createElement('span');
+        span.textContent = Math.random() < 0.7 ? '🌸' : (Math.random() < 0.5 ? '🌺' : '💮');
+        span.className = 'flower';
+        const size = 16 + Math.random() * 28;
+        span.style.fontSize = size + 'px';
+        span.style.left = Math.random() * 100 + 'vw';
+        const fallDur = 5 + Math.random() * 6;
+        const delay = Math.random() * 1.5;
+        span.style.animation = `fall ${fallDur}s linear ${delay}s forwards`;
+        document.body.appendChild(span);
+        const total = (fallDur + delay) * 1000;
+        setTimeout(() => span.remove(), total + 50);
+        const nextIn = 120 + Math.random() * 200;
+        flowersTimer = setTimeout(spawnOne, nextIn);
+      }
+      spawnOne();
+      setTimeout(() => { if (flowersTimer) clearTimeout(flowersTimer); }, duration + 1000);
+    }
+
+    function updateMusicIcon() {
+      musicIcon.src = music.paused ? 'https://img.icons8.com/ios-filled/50/000000/mute.png' : 'https://img.icons8.com/ios-filled/50/000000/speaker.png';
+    }
+    music.addEventListener('play', updateMusicIcon);
+    music.addEventListener('pause', updateMusicIcon);
+
+    musicToggle.addEventListener('click', () => {
+      if (music.paused) music.play().catch(() => {}); else music.pause();
+      updateMusicIcon();
+    });
+
+    openBtn.addEventListener('click', async () => {
       video.muted = true;
-      video.play();
+      try { await video.play(); } catch (_) {}
+      if (music.paused) { try { await music.play(); } catch (_) {} }
+      updateMusicIcon();
+      invitationVideoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      fadeIn(invitationVideoSection);
+      startFlowerFall(10000);
+      if (autoScrollTimer) clearTimeout(autoScrollTimer);
+      autoScrollTimer = setTimeout(() => {
+        eventDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        fadeIn(eventDetailsSection);
+      }, 15000);
+    });
 
-      // Play background music (unmuted)
-      if (music.paused) {
-        music.play().catch(err => console.log("Music blocked:", err));
-      }
-
-      // Smooth scroll
-      document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function toggleMusic() {
-      const music = document.getElementById("bgMusic");
-      const icon = document.getElementById("musicIcon");
-      if (music.paused) {
-        music.play();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/musical-notes.png";
-      } else {
-        music.pause();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
-      }
-    }
+    updateMusicIcon();
   </script>
 </body>
 </html>
