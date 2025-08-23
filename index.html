@@ -5,92 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Majlis Pertunangan</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png" />
 
   <style>
-    :root { --fade-dur: 800ms; }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    /* CSS Variables & General Setup */
+    :root {
+      --fade-duration: 800ms;
+      --text-color: #333;
+      --border-color: #555;
+      --background-color: #fff;
+    }
 
-    body, html {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Aref Ruqaa', serif;
-      color: #000;
-      text-align: center;
-      background: #fff;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Aref Ruqaa', serif;
+      color: var(--text-color);
+      text-align: center;
+      background-color: var(--background-color);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page Sections */
     section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
       background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
       background-size: cover;
-      padding: 60px 20px;
     }
 
-    h1 { font-size: 8vw; margin-bottom: 20px; }
-    .hero-image { max-width: 800px; width: 90%; height: auto; }
+    /* Typography using modern clamp() for responsive font sizes */
+    h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 20px; font-weight: 400; }
+    h2 { font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 20px; font-weight: 400; }
+    p { font-size: clamp(1rem, 4.5vw, 1.5rem); margin: 10px 0; }
 
+    .bismillah { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 5vw, 2.5rem); margin-bottom: 20px; }
+    .cinzel { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4.5vw, 2rem); margin: 10px 0; }
+    .default-small { font-size: clamp(0.9rem, 3.5vw, 1.2rem); margin: 8px 0; font-style: italic; }
+    .default-bold { font-size: clamp(1rem, 4vw, 1.4rem); font-weight: bold; margin: 12px 0; }
+    .ampersand { font-size: clamp(1rem, 4vw, 1.6rem); margin: 8px 0; }
+    
+    .icon {
+        width: clamp(24px, 6vw, 32px);
+        height: clamp(24px, 6vw, 32px);
+        margin-bottom: 10px;
+    }
+    
+    .medium-gap {
+        height: 40px;
+    }
+
+    /* Images and Video */
+    .hero-image {
+      max-width: 800px;
+      width: 90%;
+      height: auto;
+    }
+
+    video {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      border: none;
+      outline: none;
+      display: block;
+      margin: auto;
+    }
+
+    /* Buttons */
     .cta-button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 8px 10px;
-      font-size: 4vw;
+      display: inline-flex; /* Use flexbox for alignment */
+      justify-content: center;
+      align-items: center;
+      gap: 10px; /* Space between icon and text */
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: clamp(1rem, 4vw, 1.5rem);
       max-width: 500px;
       width: 90%;
-      border: 2px solid #000;
+      border: 2px solid var(--border-color);
       border-radius: 12px;
-      background: #fff;
-      color: #000;
+      background: var(--background-color);
+      color: var(--text-color);
       cursor: pointer;
       font-family: 'Aref Ruqaa', serif;
-      transition: transform .15s ease, box-shadow .15s ease;
+      text-decoration: none; /* Remove underline from links */
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
-    .cta-button:active { transform: scale(.98); box-shadow: 0 2px 0 rgba(0,0,0,.2) inset; }
 
-    video { width: 100%; max-width: 900px; height: auto; border: none; outline: none; display: block; margin: auto; }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .cta-button:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+    }
 
     .floating-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(255,255,255,.85);
-      border: 2px solid #000;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid var(--border-color);
       border-radius: 50%;
-      padding: 12px;
       cursor: pointer;
-      z-index: 999;
+      z-index: 1001;
       backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    .floating-btn img { width: 24px; height: 24px; display: block; }
-
-    h2 { font-size: 6vw; margin-bottom: 20px; }
-    p  { font-size: 4.5vw; margin: 10px 0; }
-
-    .fade-section { opacity: 0; transform: translateY(10px); transition: opacity var(--fade-dur) ease, transform var(--fade-dur) ease; }
-    .fade-section.visible { opacity: 1; transform: none; }
-
-    /* Custom Text Styles */
-    .bismillah { font-family: 'Playfair Display', serif; font-size: 5vw; margin-bottom: 20px; }
-    .cinzel { font-family: 'Cinzel', serif; font-size: 4.5vw; margin: 10px 0; }
-    .default-small { font-size: 3.5vw; margin: 6px 0; font-style: italic; }
-    .default-bold { font-size: 4vw; font-weight: bold; margin: 8px 0; }
-    .ampersand { font-size: 4vw; margin: 6px 0; }
-
-    @media (min-width: 768px) {
-      h1 { font-size: 4vw; }
-      h2 { font-size: 2.5vw; }
-      p  { font-size: 1.5vw; }
-      .cta-button { font-size: 1.5vw; }
-      .bismillah { font-size: 2vw; }
-      .cinzel { font-size: 1.8vw; }
-      .default-small { font-size: 1.2vw; }
-      .default-bold { font-size: 1.6vw; }
-      .ampersand { font-size: 1.6vw; }
+    .floating-btn img {
+      width: 24px;
+      height: 24px;
+      display: block;
     }
+
+    /* Animations & Effects */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
+    }
+
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .flower {
+      position: fixed;
+      top: -50px;
+      z-index: 1000;
+      pointer-events: none;
+      user-select: none;
+      font-size: 24px;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Countdown Timer */
+    .countdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    .countdown-item {
+        display: flex;
+        flex-direction: column;
+    }
+    .countdown-digit {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2rem, 10vw, 4rem);
+        font-weight: bold;
+    }
+    .countdown-label {
+        font-family: 'Aref Ruqaa', serif;
+        font-size: clamp(0.8rem, 3vw, 1.2rem);
+    }
+    
+    /* RSVP Form */
+    .form-container {
+        width: 100%;
+        max-width: 640px;
+        height: 80vh; /* Adjust height as needed */
+        overflow: hidden;
+        border-radius: 12px;
+        border: 2px solid var(--border-color);
+    }
+    .form-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+    
   </style>
 </head>
 <body>
@@ -100,15 +216,15 @@
     <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Floating Music Toggle -->
+  <!-- Floating Music Toggle Button -->
   <button class="floating-btn" id="musicToggle" aria-label="Togol muzik">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music" />
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music Icon" />
   </button>
 
   <!-- Hero Section -->
   <section id="hero" class="fade-section visible">
     <h1>Undangan Majlis Pertunangan</h1>
-    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image" />
+    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo Pasangan" class="hero-image" />
     <button class="cta-button" id="openInvite">Buka Jemputan</button>
   </section>
 
@@ -116,99 +232,211 @@
   <section id="invitation-video" class="fade-section">
     <video id="videoCard" loop playsinline>
       <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
     </video>
   </section>
 
-  <!-- Event Details Section 1 -->
+  <!-- Event Details Section -->
   <section id="event-details" class="fade-section">
-    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-    <div class="cinzel">Mohd Nasir Bin Daud @ Shaari</div>
-    <div class="ampersand">&</div>
-    <div class="cinzel">Sharifah Norliza Bt Syed Ishak</div>
-    <div class="default-small">Dengan penuh kesyukuran, kami menjemput</div>
-    <div class="default-bold">Dato • Datin • Tuan • Puan</div>
-    <div class="default-small">ke majlis pertunangan puteri kami,</div>
-    <div class="cinzel">Putri Nayli Batrisyia Binti Mohd Nasir</div>
-    <div class="ampersand">&</div>
-    <div class="cinzel">Zarul Izham Bin Mohammad</div>
+    <p class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+    <p class="cinzel">Mohd Nasir Bin Daud @ Shaari</p>
+    <p class="ampersand">&</p>
+    <p class="cinzel">Sharifah Norliza Bt Syed Ishak</p>
+    <p class="default-small">Dengan penuh kesyukuran, kami menjemput</p>
+    <p class="default-bold">Dato' / Datin / Tuan / Puan / Encik / Cik</p>
+    <p class="default-small">ke majlis pertunangan puteri kami,</p>
+    <p class="cinzel">Putri Nayli Batrisyia Binti Mohd Nasir</p>
+    <p class="ampersand">&</p>
+    <p class="cinzel">Zarul Izham Bin Mohammad</p>
+  </section>
+  
+  <!-- NEW: Date, Time & Location Section -->
+  <section id="location-details" class="fade-section">
+      <p class="cinzel">Tarikh & Masa</p>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"></path></svg>
+      <p class="default-bold" style="font-style: italic; margin: 5px 0;">11 Oktober 2025 (Sabtu)</p>
+      <p class="default-bold" style="font-style: italic; margin: 5px 0;">11 Pagi</p>
+
+      <div class="medium-gap"></div>
+
+      <p class="cinzel">Lokasi Majlis</p>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.589 2 4 5.589 4 9.995 4 15.826 12 22 12 22s8-6.174 8-12.005C20 5.589 16.411 2 12 2zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
+      <p class="default-bold" style="font-style: italic; margin: 5px 0;">Akasea Sojourn, No 72, Jalan Indera 5, Pekan Jitra, 06000 Jitra, Kedah</p>
+      
+      <a href="https://maps.app.goo.gl/mKyKcLx1XG1qAajL8" target="_blank" class="cta-button">Google Maps</a>
+      <a href="https://waze.com/ul/hw1p7t4vvy" target="_blank" class="cta-button">Waze</a>
   </section>
 
-  <!-- Script unchanged (scroll, fade, flowers, music) -->
+  <!-- NEW: Countdown & Contact Section -->
+  <section id="countdown-contact" class="fade-section">
+      <div id="countdown" class="countdown-container">
+          <div class="countdown-item"><span id="days" class="countdown-digit">00</span><span class="countdown-label">Hari</span></div>
+          <div class="countdown-item"><span id="hours" class="countdown-digit">00</span><span class="countdown-label">Jam</span></div>
+          <div class="countdown-item"><span id="minutes" class="countdown-digit">00</span><span class="countdown-label">Minit</span></div>
+          <div class="countdown-item"><span id="seconds" class="countdown-digit">00</span><span class="countdown-label">Saat</span></div>
+      </div>
+      
+      <div class="medium-gap"></div>
+
+      <p class="cinzel">Sila Sahkan Kehadiran Anda!</p>
+      <button class="cta-button" id="rsvpButton">RSVP</button>
+
+      <div class="medium-gap"></div>
+
+      <p class="cinzel">Jika Anda Mempunyai Sebarang Pertanyaan, Sila Hubungi</p>
+      
+      <a href="https://wa.me/60164157272" target="_blank" class="cta-button">
+          <svg class="icon" style="width:24px; height:24px" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.217 4.432 4.515-1.187zM8.211 10.891c-.216-.124-.487-.205-.727-.205-.222 0-.441.025-.647.076-.23.06-.486.146-.717.375-.244.244-.785.762-.785 1.846 0 1.084.799 2.147.914 2.309.112.161 1.545 2.481 3.756 3.337 1.953.759 2.24 1.023 2.574 1.189.516.263.97.245 1.255.14.33-.12 1.422-.689 1.629-1.353.205-.662.205-1.225.142-1.353-.065-.128-.244-.205-.515-.375-.271-.17-.1.236-1.645-1.043-.27-.205-.515-.375-.717-.375-.143 0-.306.025-.438.14-.13.112-.305.375-.376.475-.072.101-.142.125-.27.05-.126-.075-1.043-.375-1.977-1.217-.719-.689-1.2-1.545-1.329-1.816-.128-.27-.025-.412.089-.539.09-.101.216-.244.27-.375.05-.13.075-.216.025-.375-.05-.158-.244-.717-.344-.963z"></path></svg>
+          Mohd Nasir
+      </a>
+      <a href="https://wa.me/60195627272" target="_blank" class="cta-button">
+          <svg class="icon" style="width:24px; height:24px" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.217 4.432 4.515-1.187zM8.211 10.891c-.216-.124-.487-.205-.727-.205-.222 0-.441.025-.647.076-.23.06-.486.146-.717.375-.244.244-.785.762-.785 1.846 0 1.084.799 2.147.914 2.309.112.161 1.545 2.481 3.756 3.337 1.953.759 2.24 1.023 2.574 1.189.516.263.97.245 1.255.14.33-.12 1.422-.689 1.629-1.353.205-.662.205-1.225.142-1.353-.065-.128-.244-.205-.515-.375-.271-.17-.1.236-1.645-1.043-.27-.205-.515-.375-.717-.375-.143 0-.306.025-.438.14-.13.112-.305.375-.376.475-.072.101-.142.125-.27.05-.126-.075-1.043-.375-1.977-1.217-.719-.689-1.2-1.545-1.329-1.816-.128-.27-.025-.412.089-.539.09-.101.216-.244.27-.375.05-.13.075-.216.025-.375-.05-.158-.244-.717-.344-.963z"></path></svg>
+          Sharifah Norliza
+      </a>
+      <a href="https://wa.me/60145257272" target="_blank" class="cta-button">
+          <svg class="icon" style="width:24px; height:24px" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.217 4.432 4.515-1.187zM8.211 10.891c-.216-.124-.487-.205-.727-.205-.222 0-.441.025-.647.076-.23.06-.486.146-.717.375-.244.244-.785.762-.785 1.846 0 1.084.799 2.147.914 2.309.112.161 1.545 2.481 3.756 3.337 1.953.759 2.24 1.023 2.574 1.189.516.263.97.245 1.255.14.33-.12 1.422-.689 1.629-1.353.205-.662.205-1.225.142-1.353-.065-.128-.244-.205-.515-.375-.271-.17-.1.236-1.645-1.043-.27-.205-.515-.375-.717-.375-.143 0-.306.025-.438.14-.13.112-.305.375-.376.475-.072.101-.142.125-.27.05-.126-.075-1.043-.375-1.977-1.217-.719-.689-1.2-1.545-1.329-1.816-.128-.27-.025-.412.089-.539.09-.101.216-.244.27-.375.05-.13.075-.216.025-.375-.05-.158-.244-.717-.344-.963z"></path></svg>
+          Putri Nayli
+      </a>
+      <a href="https://wa.me/60174249892" target="_blank" class="cta-button">
+          <svg class="icon" style="width:24px; height:24px" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.217 4.432 4.515-1.187zM8.211 10.891c-.216-.124-.487-.205-.727-.205-.222 0-.441.025-.647.076-.23.06-.486.146-.717.375-.244.244-.785.762-.785 1.846 0 1.084.799 2.147.914 2.309.112.161 1.545 2.481 3.756 3.337 1.953.759 2.24 1.023 2.574 1.189.516.263.97.245 1.255.14.33-.12 1.422-.689 1.629-1.353.205-.662.205-1.225.142-1.353-.065-.128-.244-.205-.515-.375-.271-.17-.1.236-1.645-1.043-.27-.205-.515-.375-.717-.375-.143 0-.306.025-.438.14-.13.112-.305.375-.376.475-.072.101-.142.125-.27.05-.126-.075-1.043-.375-1.977-1.217-.719-.689-1.2-1.545-1.329-1.816-.128-.27-.025-.412.089-.539.09-.101.216-.244.27-.375.05-.13.075-.216.025-.375-.05-.158-.244-.717-.344-.963z"></path></svg>
+          Zarul Izham
+      </a>
+  </section>
+  
+  <!-- NEW: RSVP Form Section (Initially Hidden) -->
+  <section id="rsvp-section" class="fade-section">
+      <div class="form-container">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSch-x1KTBlBa-Pf0lksK3HQuevIcjyQud7qOG-A4r16nZOAzQ/viewform?embedded=true">Loading…</iframe>
+      </div>
+  </section>
+
+
+  <!-- JavaScript -->
   <script>
-    const video = document.getElementById('videoCard');
-    const music = document.getElementById('bgMusic');
-    const invitationVideoSection = document.getElementById('invitation-video');
-    const eventDetailsSection = document.getElementById('event-details');
-    const openBtn = document.getElementById('openInvite');
-    const musicToggle = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon');
+    document.addEventListener('DOMContentLoaded', () => {
+    
+      const video = document.getElementById('videoCard');
+      const music = document.getElementById('bgMusic');
+      const openBtn = document.getElementById('openInvite');
+      const musicToggle = document.getElementById('musicToggle');
+      const musicIcon = document.getElementById('musicIcon');
+      const rsvpButton = document.getElementById('rsvpButton');
+      const rsvpSection = document.getElementById('rsvp-section');
+      const sectionsToFade = document.querySelectorAll('.fade-section:not(#hero)');
 
-    let autoScrollTimer = null;
-    let flowersTimer = null;
+      let autoScrollTimer = null;
+      let flowersTimer = null;
 
-    function fadeIn(el) { el.classList.add('visible'); }
+      const musicIconPaths = {
+        playing: 'https://img.icons8.com/ios-filled/50/000000/speaker.png',
+        muted: 'https://img.icons8.com/ios-filled/50/000000/mute.png'
+      };
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.fade-section').forEach((sec) => {
-      if (sec.id !== 'hero') io.observe(sec);
-    });
-
-    function startFlowerFall(duration = 10000) {
-      const start = Date.now();
-      function spawnOne() {
-        const now = Date.now();
-        if (now - start > duration) return;
-        const span = document.createElement('span');
-        span.textContent = Math.random() < 0.7 ? '🌸' : (Math.random() < 0.5 ? '🌺' : '💮');
-        span.className = 'flower';
-        const size = 16 + Math.random() * 28;
-        span.style.fontSize = size + 'px';
-        span.style.left = Math.random() * 100 + 'vw';
-        const fallDur = 5 + Math.random() * 6;
-        const delay = Math.random() * 1.5;
-        span.style.animation = `fall ${fallDur}s linear ${delay}s forwards`;
-        document.body.appendChild(span);
-        const total = (fallDur + delay) * 1000;
-        setTimeout(() => span.remove(), total + 50);
-        const nextIn = 120 + Math.random() * 200;
-        flowersTimer = setTimeout(spawnOne, nextIn);
+      function updateMusicIcon() {
+        musicIcon.src = music.paused ? musicIconPaths.muted : musicIconPaths.playing;
       }
-      spawnOne();
-      setTimeout(() => { if (flowersTimer) clearTimeout(flowersTimer); }, duration + 1000);
-    }
 
-    function updateMusicIcon() {
-      musicIcon.src = music.paused ? 'https://img.icons8.com/ios-filled/50/000000/mute.png' : 'https://img.icons8.com/ios-filled/50/000000/speaker.png';
-    }
-    music.addEventListener('play', updateMusicIcon);
-    music.addEventListener('pause', updateMusicIcon);
+      musicToggle.addEventListener('click', () => {
+        if (music.paused) {
+          music.play().catch(e => console.error("Music play failed:", e));
+        } else {
+          music.pause();
+        }
+      });
+      
+      music.addEventListener('play', updateMusicIcon);
+      music.addEventListener('pause', updateMusicIcon);
 
-    musicToggle.addEventListener('click', () => {
-      if (music.paused) music.play().catch(() => {}); else music.pause();
+      function startFlowerFall(duration = 10000) {
+        const container = document.body;
+        const startTime = Date.now();
+
+        function createFlower() {
+          if (Date.now() - startTime > duration) {
+            clearTimeout(flowersTimer);
+            return;
+          }
+
+          const flower = document.createElement('span');
+          flower.className = 'flower';
+          flower.textContent = Math.random() < 0.7 ? '🌸' : (Math.random() < 0.5 ? '🌺' : '💮');
+          
+          const size = 16 + Math.random() * 28;
+          const fallDuration = 5 + Math.random() * 6;
+          const delay = Math.random() * 1.5;
+          
+          flower.style.fontSize = `${size}px`;
+          flower.style.left = `${Math.random() * 100}vw`;
+          flower.style.animation = `fall ${fallDuration}s linear ${delay}s forwards`;
+          
+          container.appendChild(flower);
+
+          setTimeout(() => {
+            flower.remove();
+          }, (fallDuration + delay) * 1000 + 50);
+          
+          flowersTimer = setTimeout(createFlower, 120 + Math.random() * 200);
+        }
+        createFlower();
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      sectionsToFade.forEach(section => observer.observe(section));
+      
+      openBtn.addEventListener('click', async () => {
+        video.muted = true;
+        try { await video.play(); } catch (e) { console.error("Video play failed:", e); }
+        if (music.paused) {
+          try { await music.play(); } catch (e) { console.error("Music play failed:", e); }
+        }
+
+        const videoSection = document.getElementById('invitation-video');
+        videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        startFlowerFall(10000);
+
+        if (autoScrollTimer) clearTimeout(autoScrollTimer);
+        autoScrollTimer = setTimeout(() => {
+          document.getElementById('event-details').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 15000);
+      });
+      
+      // --- NEW: Countdown Timer Logic ---
+      const countdownDate = new Date("October 11, 2025 11:00:00").getTime();
+      const countdownInterval = setInterval(() => {
+          const now = new Date().getTime();
+          const distance = countdownDate - now;
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById('days').innerText = String(days).padStart(2, '0');
+          document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+          document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+          document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+          if (distance < 0) {
+              clearInterval(countdownInterval);
+              document.getElementById('countdown').innerHTML = "<p class='cinzel'>Majlis Telah Berlangsung</p>";
+          }
+      }, 1000);
+
+      // --- NEW: RSVP Button Logic ---
+      rsvpButton.addEventListener('click', () => {
+          rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
       updateMusicIcon();
     });
-
-    openBtn.addEventListener('click', async () => {
-      video.muted = true;
-      try { await video.play(); } catch (_) {}
-      if (music.paused) { try { await music.play(); } catch (_) {} }
-      updateMusicIcon();
-      invitationVideoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      fadeIn(invitationVideoSection);
-      startFlowerFall(10000);
-      if (autoScrollTimer) clearTimeout(autoScrollTimer);
-      autoScrollTimer = setTimeout(() => {
-        eventDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        fadeIn(eventDetailsSection);
-      }, 15000);
-    });
-
-    updateMusicIcon();
   </script>
+
 </body>
 </html>
