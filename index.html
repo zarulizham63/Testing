@@ -1,42 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Undangan Majlis Pertunangan</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png" type="image/png">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: 'Aref Ruqaa', serif;
-      text-align: center;
-      background: url('https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png') no-repeat center center fixed;
-      background-size: cover;
-      overflow-x: hidden;
+    :root {
+      --scroll-duration: 1500ms; /* medium speed */
     }
 
-    section {
-      padding: 60px 20px;
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Aref Ruqaa', serif;
+      text-align: center;
+      overflow-x: hidden;
+      color: #000;
+    }
+
+    /* Each section has the SAME background (split-sections) */
+    section.bg {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 60px 20px;
+      background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
+      background-size: cover; /* no distortion, crops if needed */
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 1.5s ease, transform 1.5s ease;
     }
-
-    section.visible {
+    section.bg.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
     h1 {
       font-size: 8vw;
-      margin-bottom: 20px;
+      margin: 0 0 20px 0;
     }
 
     .main-img {
@@ -49,121 +55,153 @@
     .cta-button {
       display: inline-block;
       margin-top: 30px;
-      padding: 8px 10px;
+      padding: 8px 10px;         /* smaller height */
       font-size: 4vw;
-      max-width: 500px;
+      max-width: 500px;          /* longer width cap */
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
-      background: #fff;
+      background: #fff;          /* white background */
       color: #000;
       cursor: pointer;
       font-family: 'Aref Ruqaa', serif;
     }
 
+    video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      border: none;
+      border-radius: 0;          /* borderless */
+      outline: none;
+      display: block;
+    }
+
+    /* Floating music toggle */
     .floating-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: transparent;
-      border: 2px solid #000;
+      background: transparent;   /* transparent bg */
+      border: 2px solid #000;    /* black border */
       border-radius: 50%;
-      padding: 10px;
+      padding: 12px;
       cursor: pointer;
       z-index: 1000;
     }
-
     .floating-btn img {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
+      display: block;
     }
 
-    video {
-      width: 100%;
-      max-width: 800px;
-      border: none;
-      border-radius: 12px;
-    }
-
-    /* Falling flowers effect */
+    /* Falling flowers */
     .flower {
       position: fixed;
       top: -50px;
       width: 30px;
       height: 30px;
-      background-image: url('https://img.icons8.com/emoji/48/000000/cherry-blossom.png');
+      background-image: url('https://img.icons8.com/emoji/48/cherry-blossom.png');
       background-size: cover;
       pointer-events: none;
       animation: fall linear forwards;
+      z-index: 999;
+      opacity: 1;
     }
-
     @keyframes fall {
       to {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(110vh) rotate(360deg);
         opacity: 0;
       }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 10vw; }
+      .cta-button { font-size: 5vw; }
+      .floating-btn { padding: 12px; }
+      .floating-btn img { width: 24px; height: 24px; }
     }
   </style>
 </head>
 <body>
-  <!-- Background music -->
-  <audio id="bgMusic" loop autoplay>
+
+  <!-- Background Music (started by button click) -->
+  <audio id="bgMusic" loop>
     <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Music toggle -->
+  <!-- Floating Music Toggle -->
   <button class="floating-btn" onclick="toggleMusic()">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Music">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Speaker">
   </button>
 
-  <!-- Intro Section -->
-  <section id="intro" class="visible">
+  <!-- Intro / Hero -->
+  <section id="intro" class="bg visible">
     <h1>Undangan Majlis Pertunangan</h1>
-    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding" class="main-img">
-    <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
+    <img class="main-img" src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding">
+    <button class="cta-button" onclick="onOpenInvitation()">Buka Jemputan</button>
   </section>
 
   <!-- Invitation Video -->
-  <section id="invitation-video">
-    <video id="videoCard" autoplay muted loop playsinline></video>
+  <section id="invitation-video" class="bg">
+    <video id="videoCard" loop muted playsinline></video>
   </section>
 
   <!-- Event Details -->
-  <section id="event-details">
+  <section id="event-details" class="bg">
     <h2>Butiran Majlis</h2>
-    <p>Tarikh, masa dan lokasi akan dipaparkan di sini.</p>
+    <p>Tarikh, masa, dan lokasi akan dipaparkan di sini.</p>
   </section>
 
   <script>
-    function scrollToVideo() {
+    // Smooth scroll with custom duration (easeInOutCubic)
+    function smoothScrollTo(targetEl, duration = 1500) {
+      const startY = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = targetEl.getBoundingClientRect().top + startY;
+      const distance = targetY - startY;
+      let startTime = null;
+
+      const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+
+      function step(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const t = Math.min((currentTime - startTime) / duration, 1);
+        const eased = easeInOutCubic(t);
+        window.scrollTo(0, startY + distance * eased);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function onOpenInvitation() {
       const video = document.getElementById("videoCard");
       const music = document.getElementById("bgMusic");
+      const videoSection = document.getElementById("invitation-video");
+      const detailsSection = document.getElementById("event-details");
 
-      // Set video source & play muted
+      // Set video source (only once) & play muted
       if (!video.src) {
         video.src = "https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4";
       }
       video.muted = true;
       video.play();
 
-      // Play background music
+      // Start background music with sound
       if (music.paused) {
-        music.play().catch(err => console.log("Music blocked:", err));
+        music.play().catch(() => {});
       }
 
-      // Smooth scroll to video section
-      const videoSection = document.getElementById("invitation-video");
-      videoSection.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => videoSection.classList.add("visible"), 800);
+      // Scroll to video with medium speed + fade-in
+      smoothScrollTo(videoSection, 1500);
+      setTimeout(() => videoSection.classList.add("visible"), 700);
 
-      // Trigger falling flowers effect
-      startFlowers();
+      // Flowers for 5 seconds
+      startFlowers(5000);
 
-      // After 30s at video section → scroll to details
+      // After 30 seconds at video section → auto scroll to details (with fade-in)
       setTimeout(() => {
-        const details = document.getElementById("event-details");
-        details.scrollIntoView({ behavior: "smooth" });
-        setTimeout(() => details.classList.add("visible"), 800);
+        smoothScrollTo(detailsSection, 1500);
+        setTimeout(() => detailsSection.classList.add("visible"), 700);
       }, 30000);
     }
 
@@ -171,38 +209,40 @@
       const music = document.getElementById("bgMusic");
       const icon = document.getElementById("musicIcon");
       if (music.paused) {
-        music.play();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png";
+        music.play().catch(() => {});
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png"; // playing
       } else {
         music.pause();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";    // muted
       }
     }
 
-    // Falling flowers effect
-    function startFlowers() {
-      let count = 0;
-      const interval = setInterval(() => {
-        createFlower();
-        count++;
-        if (count > 20) clearInterval(interval);
-      }, 250);
+    // Falling flowers (duration in ms)
+    function startFlowers(duration = 5000) {
+      const start = performance.now();
+      const spawnEvery = 250; // ms
+      let lastSpawn = 0;
+
+      function spawnFlower() {
+        const f = document.createElement("div");
+        f.className = "flower";
+        f.style.left = Math.random() * window.innerWidth + "px";
+        f.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 6000);
+      }
+
+      function loop(now) {
+        if (now - lastSpawn >= spawnEvery) {
+          spawnFlower();
+          lastSpawn = now;
+        }
+        if (now - start < duration) {
+          requestAnimationFrame(loop);
+        }
+      }
+      requestAnimationFrame(loop);
     }
-
-    function createFlower() {
-      const flower = document.createElement("div");
-      flower.className = "flower";
-      flower.style.left = Math.random() * window.innerWidth + "px";
-      flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
-      document.body.appendChild(flower);
-
-      setTimeout(() => {
-        flower.remove();
-      }, 5000);
-    }
-
-    // Make intro visible immediately
-    document.getElementById("intro").classList.add("visible");
   </script>
 </body>
 </html>
