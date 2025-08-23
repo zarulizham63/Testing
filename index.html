@@ -1,67 +1,52 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Majlis Pertunangan</title>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --scroll-duration: 1500ms; /* medium speed */
-    }
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.png">
 
-    html, body {
+  <style>
+    body, html {
       margin: 0;
       padding: 0;
       font-family: 'Aref Ruqaa', serif;
-      text-align: center;
-      overflow-x: hidden;
       color: #000;
+      text-align: center;
     }
 
-    /* Each section has the SAME background (split-sections) */
-    section.bg {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 60px 20px;
+    section {
       background: url("https://raw.githubusercontent.com/zarulizham63/Testing/main/Background.Portrait.png") no-repeat center center;
-      background-size: cover; /* no distortion, crops if needed */
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1.5s ease, transform 1.5s ease;
-    }
-    section.bg.visible {
-      opacity: 1;
-      transform: translateY(0);
+      background-size: cover;
+      padding: 60px 20px;
     }
 
     h1 {
       font-size: 8vw;
-      margin: 0 0 20px 0;
+      margin-bottom: 20px;
     }
 
-    .main-img {
-      max-width: 90%;
-      width: 800px;
+    .hero-image {
+      max-width: 800px;
+      width: 90%;
       height: auto;
-      margin: 20px 0;
     }
 
     .cta-button {
       display: inline-block;
       margin-top: 30px;
-      padding: 8px 10px;         /* smaller height */
+      padding: 8px 10px;   /* smaller height */
       font-size: 4vw;
-      max-width: 500px;          /* longer width cap */
+      max-width: 500px;    /* longer width */
       width: 90%;
       border: 2px solid #000;
       border-radius: 12px;
-      background: #fff;          /* white background */
+      background: #fff;
       color: #000;
       cursor: pointer;
       font-family: 'Aref Ruqaa', serif;
@@ -69,179 +54,111 @@
 
     video {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
       height: auto;
       border: none;
-      border-radius: 0;          /* borderless */
       outline: none;
       display: block;
+      margin: auto;
     }
 
-    /* Floating music toggle */
     .floating-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: transparent;   /* transparent bg */
-      border: 2px solid #000;    /* black border */
+      background: transparent;
+      border: 2px solid #000;
       border-radius: 50%;
       padding: 12px;
       cursor: pointer;
-      z-index: 1000;
-    }
-    .floating-btn img {
-      width: 28px;
-      height: 28px;
-      display: block;
-    }
-
-    /* Falling flowers */
-    .flower {
-      position: fixed;
-      top: -50px;
-      width: 30px;
-      height: 30px;
-      background-image: url('https://img.icons8.com/emoji/48/cherry-blossom.png');
-      background-size: cover;
-      pointer-events: none;
-      animation: fall linear forwards;
       z-index: 999;
-      opacity: 1;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 10vw; }
-      .cta-button { font-size: 5vw; }
-      .floating-btn { padding: 12px; }
-      .floating-btn img { width: 24px; height: 24px; }
+    .floating-btn img {
+      width: 24px;
+      height: 24px;
+    }
+
+    h2 {
+      font-size: 6vw;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 4.5vw;
+      margin: 10px 0;
+    }
+
+    @media (min-width: 768px) {
+      h1 { font-size: 4vw; }
+      h2 { font-size: 2.5vw; }
+      p { font-size: 1.5vw; }
+      .cta-button { font-size: 1.5vw; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music (started by button click) -->
+  <!-- Background Music -->
   <audio id="bgMusic" loop>
     <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez%20-%20Cover%20(Violin).mp3" type="audio/mpeg">
   </audio>
 
   <!-- Floating Music Toggle -->
   <button class="floating-btn" onclick="toggleMusic()">
-    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/speaker.png" alt="Speaker">
+    <img id="musicIcon" src="https://img.icons8.com/ios-filled/50/000000/musical-notes.png" alt="Music">
   </button>
 
-  <!-- Intro / Hero -->
-  <section id="intro" class="bg visible">
+  <!-- Hero Section -->
+  <section id="hero">
     <h1>Undangan Majlis Pertunangan</h1>
-    <img class="main-img" src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Branding">
-    <button class="cta-button" onclick="onOpenInvitation()">Buka Jemputan</button>
+    <img src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Branding.NoBackground.png" alt="Logo" class="hero-image">
+    <button class="cta-button" onclick="scrollToVideo()">Buka Jemputan</button>
   </section>
 
-  <!-- Invitation Video -->
-  <section id="invitation-video" class="bg">
-    <video id="videoCard" loop muted playsinline></video>
+  <!-- Video Section -->
+  <section id="invitation-video">
+    <video id="videoCard" loop playsinline>
+      <source src="https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4" type="video/mp4">
+    </video>
   </section>
 
-  <!-- Event Details -->
-  <section id="event-details" class="bg">
+  <!-- Event Details Section -->
+  <section id="event-details">
     <h2>Butiran Majlis</h2>
-    <p>Tarikh, masa, dan lokasi akan dipaparkan di sini.</p>
+    <p>📍 Lokasi: Rumah Kediaman Keluarga</p>
+    <p>📅 Tarikh: 30 September 2025</p>
+    <p>🕒 Masa: 2.00 Petang</p>
   </section>
 
   <script>
-    // Smooth scroll with custom duration (easeInOutCubic)
-    function smoothScrollTo(targetEl, duration = 1500) {
-      const startY = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = targetEl.getBoundingClientRect().top + startY;
-      const distance = targetY - startY;
-      let startTime = null;
-
-      const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
-
-      function step(currentTime) {
-        if (!startTime) startTime = currentTime;
-        const t = Math.min((currentTime - startTime) / duration, 1);
-        const eased = easeInOutCubic(t);
-        window.scrollTo(0, startY + distance * eased);
-        if (t < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    function onOpenInvitation() {
+    function scrollToVideo() {
       const video = document.getElementById("videoCard");
       const music = document.getElementById("bgMusic");
-      const videoSection = document.getElementById("invitation-video");
-      const detailsSection = document.getElementById("event-details");
 
-      // Set video source (only once) & play muted
-      if (!video.src) {
-        video.src = "https://raw.githubusercontent.com/zarulizham63/Testing/main/Invitation%20Video.mp4";
-      }
+      // Play video muted
       video.muted = true;
       video.play();
 
-      // Start background music with sound
+      // Play background music (unmuted)
       if (music.paused) {
-        music.play().catch(() => {});
+        music.play().catch(err => console.log("Music blocked:", err));
       }
 
-      // Scroll to video with medium speed + fade-in
-      smoothScrollTo(videoSection, 1500);
-      setTimeout(() => videoSection.classList.add("visible"), 700);
-
-      // Flowers for 5 seconds
-      startFlowers(5000);
-
-      // After 30 seconds at video section → auto scroll to details (with fade-in)
-      setTimeout(() => {
-        smoothScrollTo(detailsSection, 1500);
-        setTimeout(() => detailsSection.classList.add("visible"), 700);
-      }, 30000);
+      // Smooth scroll
+      document.getElementById("invitation-video").scrollIntoView({ behavior: "smooth" });
     }
 
     function toggleMusic() {
       const music = document.getElementById("bgMusic");
       const icon = document.getElementById("musicIcon");
       if (music.paused) {
-        music.play().catch(() => {});
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/speaker.png"; // playing
+        music.play();
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/musical-notes.png";
       } else {
         music.pause();
-        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";    // muted
+        icon.src = "https://img.icons8.com/ios-filled/50/000000/mute.png";
       }
-    }
-
-    // Falling flowers (duration in ms)
-    function startFlowers(duration = 5000) {
-      const start = performance.now();
-      const spawnEvery = 250; // ms
-      let lastSpawn = 0;
-
-      function spawnFlower() {
-        const f = document.createElement("div");
-        f.className = "flower";
-        f.style.left = Math.random() * window.innerWidth + "px";
-        f.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(f);
-        setTimeout(() => f.remove(), 6000);
-      }
-
-      function loop(now) {
-        if (now - lastSpawn >= spawnEvery) {
-          spawnFlower();
-          lastSpawn = now;
-        }
-        if (now - start < duration) {
-          requestAnimationFrame(loop);
-        }
-      }
-      requestAnimationFrame(loop);
     }
   </script>
 </body>
